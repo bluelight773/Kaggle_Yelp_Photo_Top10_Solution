@@ -13,10 +13,6 @@ data_root is the full path containing:
 2) train_photos folder with all the training photos inside
 3) test_photos folder with all the test photos inside
 
-
-Extracted features will be stored in .h5 files places in the data_root folder.
-Those .h5 files will be used as the primary input for compute_biz_inception_features.py (Step 2).
-
 This file is largely based on:
 https://github.com/tensorflow/tensorflow/blob/master/tensorflow/models/image/imagenet/classify_image.py
 https://github.com/ncchen55414/Kaggle-Yelp/tree/master/CNN_Submission1
