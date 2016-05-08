@@ -16,7 +16,6 @@ data_root is the full path containing:
 This file is largely based on:
 https://github.com/tensorflow/tensorflow/blob/master/tensorflow/models/image/imagenet/classify_image.py
 https://github.com/ncchen55414/Kaggle-Yelp/tree/master/CNN_Submission1
-
 """
 
 from __future__ import absolute_import
