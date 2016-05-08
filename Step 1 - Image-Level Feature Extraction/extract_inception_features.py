@@ -132,7 +132,7 @@ def train():
 
 
 def test():
-    """Extract training image features, based on the last 2 layers (pool3:0 and softmax:0) and save to .h5"""
+    """Extract test image features, based on the last 2 layers (pool3:0 and softmax:0) and save to .h5"""
 
     # Set up the initial .h5 file if it doesn't already exist.
     if not os.path.isfile(data_root + 'test_image_inc_features.h5'):
