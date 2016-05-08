@@ -92,11 +92,11 @@ def train():
 
     # f.close()
     f = h5py.File(TRAIN_H5, 'w')
-    filenames = f.create_dataset('photo_id', (0,), maxshape=(None,), dtype='|S54')
+    f.create_dataset('photo_id', (0,), maxshape=(None,), dtype='|S54')
     for i in range(len(LAYERS)):
         layer_name = LAYERS[i]
         layer_size = LAYER_SIZES[i]
-        feature = f.create_dataset('feature_{}'.format(layer_name), (0, layer_size), maxshape=(None, layer_size))
+        f.create_dataset('feature_{}'.format(layer_name), (0, layer_size), maxshape=(None, layer_size))
     f.close()
 
     train_photos = pd.read_csv(data_root + 'train_photo_to_biz_ids.csv')
@@ -104,7 +104,7 @@ def train():
     train_images = [os.path.join(train_folder, str(x) + '.jpg') for x in train_photos['photo_id']]  # get full filename
 
     num_train = len(train_images)
-    print "Number of training images: ", num_train
+    print("Number of training images: {}".format(num_train))
 
     # Training Images
     for i in range(0, num_train, batch_size):
@@ -118,21 +118,21 @@ def train():
         f['photo_id'][i: num_done] = np.array(images)
         for j in range(len(features_list)):
             features = features_list[j]
-            f['feature_{}'.format(LAYERS[j])].resize((num_done, features.shape[1]))
-            f['feature_{}'.format(LAYERS[j])][i: num_done, :] = features
+            f['{} feature'.format(LAYERS[j])].resize((num_done, features.shape[1]))
+            f['{} feature'.format(LAYERS[j])][i: num_done, :] = features
         f.close()
         if num_done % batch_size == 0 or num_done == num_train:
-            print "Train images processed: ", num_done
+            print("Train images processed: {}".format(num_done))
 
     # Check the file content
     f = h5py.File(TRAIN_H5, 'r')
-    print TRAIN_H5
+    print(TRAIN_H5)
     for key in f.keys():
-        print key, f[key].shape
+        print("{}, {}".format(key, f[key].shape))
 
-    print "\nA photo:", f['photo_id'][0]
+    print("\nA photo:", f['photo_id'][0])
     for i in range(len(LAYERS)):
-        print "A feature vector (first 10-dim): ", f['feature_{}'.format(LAYERS[i])][0][0:10], " ..."
+        print("A feature vector (first 10-dim): {}...".format(f['feature_{}'.format(LAYERS[i])][0][0:10]))
     f.close()
 
 
@@ -140,18 +140,18 @@ def test():
     """Extract test image features, based on layers FC6 and FC7 and save to .h5."""
 
     f = h5py.File(TEST_H5, 'w')
-    filenames = f.create_dataset('photo_id', (0,), maxshape=(None,), dtype='|S54')
+    f.create_dataset('photo_id', (0,), maxshape=(None,), dtype='|S54')
     for i in range(len(LAYERS)):
         layer_name = LAYERS[i]
         layer_size = LAYER_SIZES[i]
-        feature = f.create_dataset('feature_{}'.format(layer_name), (0, layer_size), maxshape=(None, layer_size))
+        f.create_dataset('feature_{}'.format(layer_name), (0, layer_size), maxshape=(None, layer_size))
     f.close()
 
     test_photos = pd.read_csv(data_root + 'test_photo_to_biz.csv')
     test_folder = data_root + 'test_photos/'
     test_images = [os.path.join(test_folder, str(x) + '.jpg') for x in test_photos['photo_id'].unique()]
     num_test = len(test_images)
-    print "Number of test images: ", num_test
+    print("Number of test images: {}".format(num_test))
 
     # Test Images
     for i in range(0, num_test, batch_size):
@@ -164,20 +164,20 @@ def test():
         f['photo_id'][i: num_done] = np.array(images)
         for j in range(len(features_list)):
             features = features_list[j]
-            f['feature_{}'.format(LAYERS[j])].resize((num_done, features.shape[1]))
-            f['feature_{}'.format(LAYERS[j])][i: num_done, :] = features
+            f['{} feature'.format(LAYERS[j])].resize((num_done, features.shape[1]))
+            f['{} feature'.format(LAYERS[j])][i: num_done, :] = features
         f.close()
         if num_done % batch_size == 0 or num_done == num_test:
-            print "Test images processed: ", num_done
+            print("Test images processed: {}".format(num_done))
 
     # Check the file content
     f = h5py.File(TEST_H5, 'r')
-    print TEST_H5
+    print(TEST_H5)
     for key in f.keys():
-        print key, f[key].shape
-    print "\nA photo:", f['photo_id'][0]
+        print("{}, {}".format(key, f[key].shape))
+    print("\nA photo: {}".format(f['photo_id'][0]))
     for i in range(len(LAYERS)):
-        print "A feature vector (first 10-dim): ", f['feature_{}'.format(LAYERS[i])][0][0:10], " ..."
+        print("A feature vector (first 10-dim): {}...".format(f['feature_{}'.format(LAYERS[i])][0][0:10]))
     f.close()
 
 if do_train:

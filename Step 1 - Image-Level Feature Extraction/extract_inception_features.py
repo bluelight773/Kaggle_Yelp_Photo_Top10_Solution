@@ -64,9 +64,9 @@ def train():
     # Set up the initial .h5 file if it doesn't already exist.
     if not os.path.isfile(data_root + 'train_image_inc_features.h5'):
         f = h5py.File(data_root + 'train_image_inc_features.h5', 'w')
-        filenames = f.create_dataset('photo_id', (0,), maxshape=(None,), dtype='|S54')
-        sm_feature = f.create_dataset('sm feature', (0, 1008), maxshape=(None, 1008))
-        feature_p3 = f.create_dataset('p3 feature', (0, 2048), maxshape=(None, 2048))
+        f.create_dataset('photo_id', (0,), maxshape=(None,), dtype='|S54')
+        f.create_dataset('sm feature', (0, 1008), maxshape=(None, 1008))
+        f.create_dataset('p3 feature', (0, 2048), maxshape=(None, 2048))
         f.close()
 
     f = h5py.File(data_root + 'train_image_inc_features.h5', 'r+')
@@ -136,9 +136,9 @@ def test():
     # Set up the initial .h5 file if it doesn't already exist.
     if not os.path.isfile(data_root + 'test_image_inc_features.h5'):
         f = h5py.File(data_root + 'test_image_inc_features.h5', 'w')
-        filenames = f.create_dataset('photo_id', (0,), maxshape=(None,), dtype='|S54')
-        sm_feature = f.create_dataset('sm feature', (0, 1008), maxshape=(None, 1008))
-        feature_p3 = f.create_dataset('p3 feature', (0, 2048), maxshape=(None, 2048))
+        f.create_dataset('photo_id', (0,), maxshape=(None,), dtype='|S54')
+        f.create_dataset('sm feature', (0, 1008), maxshape=(None, 1008))
+        f.create_dataset('p3 feature', (0, 2048), maxshape=(None, 2048))
         f.close()
 
     f = h5py.File(data_root + 'test_image_inc_features.h5', 'r+')
