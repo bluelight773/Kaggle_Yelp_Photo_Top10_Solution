@@ -5,11 +5,7 @@ files, so they can be used by step 3 predictor script.
 
 Ensure data_root, do_train, do_test are all set as desired before running.
 
-data_root is the full path containing:
-1) all the CSVs provided as the competition data
-2) train_photos folder with all the training photos inside
-3) test_photos folder with all the test photos inside
-4) .h5 files in which the image-level features are stored
+data_root is the full path containing (amongst other things) the .h5 files in which the image-level features are stored.
 
 This file is largely based on:
 https://github.com/ncchen55414/Kaggle-Yelp/tree/master/CNN_Submission1
@@ -67,7 +63,7 @@ for feature_set in (inception_feature_set, vggplaces_feature_set):
             t = time.time()
 
             # For each business, compute a feature vector
-            df = pd.DataFrame(columns=['business', 'label', 'feature vector'])
+            df = pd.DataFrame(columns=['business', 'label', '{} feature vector'.format(layer)])
 
             index = 0
             for biz in biz_ids:
